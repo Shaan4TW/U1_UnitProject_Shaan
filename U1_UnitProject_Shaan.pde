@@ -1,3 +1,14 @@
+import ddf.minim.analysis.BeatDetect;
+/*
+Hello, this is a Digital Radio project. You will be able to play music, pause music,
+go to the next song, and adjust the volume. Unfortunately, there are only 5 songs
+that you will be able to play, but that was to prevent huge downloads. Anyway, I
+hope you enjoy this project!
+
+- Made by Shaan_4TW 
+
+*/
+
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 import ddf.minim.effects.*;
@@ -8,6 +19,8 @@ Minim minim;
 AudioPlayer song;
 AudioPlayer input;
 int number = 0;
+int circ = 115;
+BeatDetect beat;
 
 AudioPlayer [] Song = new AudioPlayer [5];
 
@@ -51,7 +64,7 @@ line(400, 200, 400, 100);
 //Speaker Left
 strokeWeight(10);
 fill(100,100,100);
-ellipse(130, 325, 115, 115);
+ellipse(130, 325, circ, circ);
 
 strokeWeight(7);
 line(90, 285, 170, 285);
@@ -87,7 +100,7 @@ line(170, 285, 170, 365);
 stroke(0);
 strokeWeight(10);
 fill(100,100,100);
-ellipse(370, 325, 115, 115);
+ellipse(370, 325, circ, circ);
 
 strokeWeight(7);
 line(330, 285, 410, 285);
@@ -210,15 +223,33 @@ void mouseReleased()
      
      Song[number].play();
    }
-   
+ 
   //Volume - button collision
   if(mouseX>183 && mouseX<233 && mouseY>375 && mouseY<425)
    {
-    
+    Song[number].setGain(Song[number].getGain() - 5);
    }
   //Volume + button collision
   if(mouseX>263 && mouseX<313 && mouseY>375 && mouseY<425)
    {
-    
+    Song[number].setGain(Song[number].getGain() + 5);
    }
+ 
   }
+  
+
+void beatDetect()
+{
+  beat = new BeatDetect();
+  beat.detect(Song[number].mix);
+ 
+  if( beat.isOnset() )
+  {
+    
+    
+    if(circ>200)
+    {
+      circ--;
+    }
+  }
+}
