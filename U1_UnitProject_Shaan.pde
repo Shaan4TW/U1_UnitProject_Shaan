@@ -1,10 +1,30 @@
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+Minim minim;
+AudioPlayer song;
+AudioPlayer input;
+int number = 0;
 
+AudioPlayer [] Song = new AudioPlayer [5];
 
 
 void setup()
 {
+ 
+  
   size(500,500);
-  background(255);
+  background(0, 120, 190);
+  
+  minim = new Minim(this);
+  Song[0] = minim.loadFile("Tristam & Braken - Flight.mp3");
+  Song[1] = minim.loadFile ("Alan Walker - Sing Me To Sleep.mp3");
+  Song[2] = minim.loadFile ("TWRK - BaDINGA!.mp3");
+  Song[3] = minim.loadFile ("DJ Snake - Middle (Audio) ft. Bipolar Sunshine.mp3");
+  Song[4] = minim.loadFile ("[DnB] - Tristam & Braken - Frame of Mind [Monstercat Release].mp3");
 }
 
 
@@ -28,16 +48,76 @@ strokeWeight(20);
 line(100, 200, 100, 100);
 line(400, 200, 400, 100);
 
-//Speakers
+//Speaker Left
 strokeWeight(10);
 fill(100,100,100);
 ellipse(130, 325, 115, 115);
 
+strokeWeight(7);
+line(90, 285, 170, 285);
+
+strokeWeight(7);
+line(75, 305, 185, 305);
+
+strokeWeight(7);
+line(75, 325, 185, 325);
+
+strokeWeight(7);
+line(75, 345, 185, 345);
+
+strokeWeight(7);
+line(90, 365, 170, 365);
+
+strokeWeight(7);
+line(90, 285, 90, 365);
+
+strokeWeight(7);
+line(110, 270, 110, 380);
+
+strokeWeight(7);
+line(130, 270, 130, 380);
+
+strokeWeight(7);
+line(150, 270, 150, 380);
+
+strokeWeight(7);
+line(170, 285, 170, 365);
+
+//Speaker Right
+stroke(0);
 strokeWeight(10);
 fill(100,100,100);
 ellipse(370, 325, 115, 115);
 
-strokeWeight(5);
+strokeWeight(7);
+line(330, 285, 410, 285);
+
+strokeWeight(7);
+line(320, 305, 420, 305);
+
+strokeWeight(7);
+line(320, 325, 420, 325);
+
+strokeWeight(7);
+line(320, 345, 420, 345);
+
+strokeWeight(7);
+line(330, 365, 410, 365);
+
+strokeWeight(7);
+line(330, 285, 330, 365);
+
+strokeWeight(7);
+line(350, 270, 350, 380);
+
+strokeWeight(7);
+line(370, 270, 370, 380);
+
+strokeWeight(7);
+line(390, 270, 390, 380);
+
+strokeWeight(7);
+line(410, 285, 410, 365);
 
 //Play button
 stroke(0);
@@ -99,3 +179,46 @@ line(288, 390, 288, 410);
 stroke(0);
 
 }
+
+void mouseReleased()
+{
+  
+  
+  //Play button collision
+  if(mouseX>215 && mouseX<285 && mouseY>295 && mouseY<365)
+   {
+    Song[number].play();
+   }
+  //Pause button collision
+  if(mouseX>183 && mouseX<233 && mouseY>235 && mouseY<285)
+   {
+    Song[number].pause();
+   }
+  //Next song button collision
+  if(mouseX>263 && mouseX<313 && mouseY>235 && mouseY<285)
+   { 
+    Song[number].rewind(); 
+     
+    Song[number].pause();
+     
+    number+=1;
+    
+    if (number>4)
+     {
+       number = 0;
+     }
+     
+     Song[number].play();
+   }
+   
+  //Volume - button collision
+  if(mouseX>183 && mouseX<233 && mouseY>375 && mouseY<425)
+   {
+    
+   }
+  //Volume + button collision
+  if(mouseX>263 && mouseX<313 && mouseY>375 && mouseY<425)
+   {
+    
+   }
+  }
