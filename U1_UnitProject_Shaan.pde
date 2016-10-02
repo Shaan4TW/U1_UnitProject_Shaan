@@ -2,7 +2,7 @@ import ddf.minim.analysis.BeatDetect;
 /*
 Hello, this is a Digital Radio project. You will be able to play music, pause music,
 go to the next song, and adjust the volume. Unfortunately, there are only 5 songs
-that you will be able to play, but that was to prevent huge downloads. Anyway, I
+that you will be able to play, but that was to prevent a huge download. Anyway, I
 hope you enjoy this project!
 
 - Made by Shaan_4TW 
@@ -44,6 +44,8 @@ void setup()
 void draw()
 {
   radio();
+  
+  beatDetect();
 }
 
 
@@ -243,13 +245,20 @@ void beatDetect()
   beat = new BeatDetect();
   beat.detect(Song[number].mix);
  
-  if( beat.isOnset() )
+  if( beat.isOnset() ) 
   {
-    
-    
-    if(circ>200)
-    {
-      circ--;
-    }
+    circ++;
   }
+  
+  if(circ >= 230)
+  {
+    circ--;
+  }
+    
+    
+  if(circ < 115) 
+  {
+  circ = 115;
+  }
+  
 }
