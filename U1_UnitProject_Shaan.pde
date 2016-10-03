@@ -29,9 +29,6 @@ AudioPlayer [] Song = new AudioPlayer [5];
 
 void setup()
 {
-
-  
-  
   size(500,500);
   background(0, 120, 190);
   
@@ -226,7 +223,7 @@ void mouseReleased()
     Song[number].pause();
      
     number+=1;
-    
+    // If the last song is finished, it will go back to the first song
     if (number>4)
      {
        number = 0;
@@ -254,18 +251,19 @@ void beatDetect()
   
   beat.detect(Song[number].mix);
  
+ //If there is a beat, then beatIt is true
   if( beat.isKick() )
   {
     beatIt = true;
   } 
- 
+ //If beatIt is true, the speakers get bigger
   if( beatIt ) 
   { 
     circ += 10;
   }
   
   
-        
+  //If the speakers are bigger than 150x150, then they shrink back down to 115      
   if (circ >= 150)
   {
     circ = 115;
@@ -276,6 +274,7 @@ void beatDetect()
 
 void nowPlaying()
 {
+  //Text at the top of the screen
   fill(0);
   textSize(20);
   text("Now playing:", 20, 20);
