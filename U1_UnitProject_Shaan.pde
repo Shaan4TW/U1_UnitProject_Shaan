@@ -21,13 +21,16 @@ AudioPlayer input;
 int number = 0;
 int circ = 115;
 BeatDetect beat;
+boolean beatIt = false;
+
 
 AudioPlayer [] Song = new AudioPlayer [5];
 
 
 void setup()
 {
- 
+
+  
   
   size(500,500);
   background(0, 120, 190);
@@ -38,6 +41,10 @@ void setup()
   Song[2] = minim.loadFile ("TWRK - BaDINGA!.mp3");
   Song[3] = minim.loadFile ("DJ Snake - Middle (Audio) ft. Bipolar Sunshine.mp3");
   Song[4] = minim.loadFile ("[DnB] - Tristam & Braken - Frame of Mind [Monstercat Release].mp3");
+
+  //Calling beatDetect
+  beat = new BeatDetect(Song[0].bufferSize(), Song[0].sampleRate());
+  beat.setSensitivity(100);
 }
 
 
@@ -46,6 +53,8 @@ void draw()
   radio();
   
   beatDetect();
+  
+  nowPlaying();
 }
 
 
@@ -242,23 +251,38 @@ void mouseReleased()
 
 void beatDetect()
 {
-  beat = new BeatDetect();
+  
   beat.detect(Song[number].mix);
  
-  if( beat.isOnset() ) 
+  if( beat.isKick() )
   {
-    circ++;
+    beatIt = true;
+  } 
+ 
+  if( beatIt ) 
+  { 
+    circ += 10;
   }
   
-  if(circ >= 230)
+  
+        
+  if (circ >= 150)
   {
-    circ--;
+    circ = 115;
+    beatIt = false;
   }
-    
-    
-  if(circ < 115) 
-  {
-  circ = 115;
-  }
+        
+}
+
+void nowPlaying()
+{
+  fill(0);
+  textSize(20);
+  text("Now playing:", 20, 20);
+  
+  fill(0,255,0);
+  textSize(30);
+  text("'Shaan FM - Best FM 94.3'", 60, 60);
+  
   
 }
