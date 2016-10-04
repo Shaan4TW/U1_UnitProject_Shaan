@@ -39,8 +39,9 @@ void setup()
   Song[3] = minim.loadFile ("DJ Snake - Middle (Audio) ft. Bipolar Sunshine.mp3");
   Song[4] = minim.loadFile ("[DnB] - Tristam & Braken - Frame of Mind [Monstercat Release].mp3");
 
-  //Calling beatDetect
+  //Calling beatDetect in setup, so that it only calls once
   beat = new BeatDetect(Song[0].bufferSize(), Song[0].sampleRate());
+  //How many milliseconds it should wait before the speakers grow
   beat.setSensitivity(100);
 }
 
@@ -248,7 +249,7 @@ void mouseReleased()
 
 void beatDetect()
 {
-  
+  //
   beat.detect(Song[number].mix);
  
  //If there is a beat, then beatIt is true
